@@ -130,13 +130,36 @@ fn debug() {
     println!("{:#?}", peter);
 }
 
+fn debug_self_challenge() {
+    //before moving onto 1.2.2 display
+    //I wanna challenge myself with a simple problem.
+
+    //Challenge: Get euler's number and print it out in 5 different ways.
+
+    #[derive(Debug)]
+    struct StoredEulersNumber(f64);
+    
+    let euluers_number = std::f64::consts::E;
+
+    println!("First way: Printing Euluer's number from a struct: {:?}", StoredEulersNumber(euluers_number));
+    println!("Second way: Printing Euluer's number as is: {}", euluers_number);
+    let euluer_as_bits = euluers_number.to_bits();
+    
+    println!("Third way: Printing Euluers number in hexadecimal: {:X?}", euluer_as_bits);
+    println!("Fourth way: Printing Euluers number by padding zeroes: {:0>15.5}", euluers_number);
+
+    let num_bits: usize = (f64::MANTISSA_DIGITS + 1) as usize;
+    let result_macro = format!("{:0>width$b}", euluer_as_bits, width = num_bits);
+    println!("Fifth way: Printing Euluers number by padding 5 zeroes and turning it into binary {}", result_macro);
+}
+
 fn main() {
     hello_world();
     formatted_print();
     formatted_print_activity();
     debug();
+    debug_self_challenge();
 }
-
 
 
 //https://doc.rust-lang.org/rust-by-example/hello/comment.html
