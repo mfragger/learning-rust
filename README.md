@@ -1,8 +1,8 @@
 # Learning Rust
 learning rust for future prospects.
 
-## Going through:
-- [ ] https://doc.rust-lang.org/rust-by-example/index.html
+## Going through
+- [ ] [Current] https://doc.rust-lang.org/rust-by-example/index.html
 
 ### Challenges
 - [x] [Get euler's number, print it out in 5 different ways.](src/main.rs?plain=1#L133)

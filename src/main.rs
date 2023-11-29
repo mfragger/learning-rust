@@ -176,7 +176,7 @@ fn debug_self_challenge() {
     );
 }
 
-use std::fmt::{self, Formatter, Display};
+use std::{fmt::{self, Formatter, Display}, mem};
 
 fn display() {
     struct Structure(i32);
@@ -401,7 +401,10 @@ fn literals_and_operators() {
 }
 
 fn tuples(){
+    // This is a tuple
+    // Tuples can be used as function arguments and as return values.
     fn reverse(pair: (i32, bool)) -> (bool, i32) {
+        // `let` can be used to bind the members of a tuple to variables.
         let (int_param, bool_param) = pair;
 
         (bool_param, int_param)
@@ -462,6 +465,42 @@ fn tuples_activity(){
     println!("{}", transpose(matrix));
 }
 
+
+// This function borrows a slice.
+fn analyze_slice(slice: &[i32]) {
+    println!("First element of the slice: {}", slice[0]);
+    println!("The slice has {} elements", slice.len());
+}
+
+fn arrays(){
+    // fixed array size with values
+    let xs: [i32; 5] = [1, 2, 3, 4, 5];
+    
+    // All elemetns are initialized in 0
+    let ys: [i32; 500] = [0; 500];
+
+    println!("First element of xs: {}", xs[0]);
+    println!("last element of ys: {}", ys[499]);
+
+    println!("length of ys: {}", ys.len());
+
+    println!("array occupies {} bytes", mem::size_of_val(&ys));
+
+    //Borrowing a silice.
+    analyze_slice(&xs);
+
+     // Arrays can be safely accessed using `.get`, which returns an
+    // `Option`. This can be matched as shown below, or used with
+    // `.expect()` if you would like the program to exit with a nice
+    // message instead of happily continue.
+    for i in 0..xs.len() + 1 { // Oops, one element too far!
+        match xs.get(i) {
+            Some(xval) => println!("{}: {}", i, xval),
+            None => println!("Slow down! {} is too far!", i),
+        }
+    }
+}
+
 #[derive(Debug)]
 struct SomeStruct(i32);
 
@@ -482,4 +521,5 @@ fn main() {
     literals_and_operators();
     tuples();
     tuples_activity();
+    arrays();
 }
