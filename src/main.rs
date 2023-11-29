@@ -501,6 +501,92 @@ fn arrays(){
     }
 }
 
+#[derive(Clone)]
+struct Point {
+    x: f32,
+    y: f32,
+}
+
+struct Rectangle {
+    top_left: Point,
+    bottom_right: Point,
+}
+
+fn custom_types() {
+    // Rust custom data types are formed mainly through the two keywords:
+    
+    // struct: define a structure
+    // enum: define an enumeration
+    // Constants can also be created via the const and static keywords.
+    
+    // We don't have classes if you have not noticed.
+    
+    #[derive(Debug)]
+    //classic C struct
+    struct Person {
+        name: String,
+        age: u8,
+    }
+    
+    //unit struct, useful for generics
+    struct Unit;
+    
+    //a tuple struct
+    struct Pair(i32, f32);
+
+
+
+    let name = String::from("Peter");
+    let age = 27;
+    let peter = Person { name, age};
+    println!("{:?}", peter);
+
+    let point: Point = Point { x: 10.3, y: 0.4 };
+
+    println!("point coordinates: ({}, {})", point.x, point.y);
+
+    let bottom_right =  Point { x: 5.2, ..point};
+
+    println!("second point: ({}, {})", bottom_right.x, bottom_right.y);
+}
+
+// Activity
+// Add a function rect_area which calculates the area of a Rectangle (try using nested destructuring).
+// Add a function square which takes a Point and a f32 as arguments, and returns a Rectangle with its top left corner on the point, and a width and height corresponding to the f32.
+fn get_rect_area(rectangle: &Rectangle) -> f32 {
+    let Rectangle {
+        top_left: Point {
+            x: x1,
+            y: y1,
+        },
+        bottom_right: Point {
+            x: x2,
+            y: y2,
+        }
+    } = rectangle;
+
+    return (x2 - x1) * (y2 -y1);
+}
+
+fn make_square(point: &Point, size: f32) -> Rectangle {
+    Rectangle {
+        top_left: point.clone(),
+        bottom_right: Point{
+            x: point.x + size,
+            y: point.y + size,
+        } 
+    } 
+}
+
+fn custom_types_struct_activity() {
+
+}
+
+fn enums(){
+    
+}
+
+
 #[derive(Debug)]
 struct SomeStruct(i32);
 
@@ -522,4 +608,7 @@ fn main() {
     tuples();
     tuples_activity();
     arrays();
+    custom_types();
+    custom_types_struct_activity();
+    enums();
 }
